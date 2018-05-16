@@ -30,6 +30,16 @@ const state = {
       },
       component: lazyLoading('axios', true)
     },
+    {
+      name: 'Wallet',
+      path: '/wallets',
+      meta: {
+        auth: true,
+        icon: 'fa-rocket',
+        link: 'wallets/index.vue'
+      },
+      component: lazyLoading('wallets', true)
+    },
     charts,
     uifeatures,
     components,
