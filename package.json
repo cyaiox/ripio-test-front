@@ -33,6 +33,7 @@
     "test": "echo lol"
   },
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.8",
     "@websanova/vue-auth": "^2.8.2-beta",
     "animate.css": "3.5.2",
     "animejs": "^2.0.1",
