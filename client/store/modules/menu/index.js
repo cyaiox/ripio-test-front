@@ -1,4 +1,5 @@
 import * as types from '../../mutation-types'
+import balance from './balance'
 import lazyLoading from './lazyLoading'
 import charts from './charts'
 import uifeatures from './uifeatures'
@@ -21,16 +22,7 @@ const state = {
       },
       component: lazyLoading('dashboard', true)
     },
-    {
-      name: 'Wallet',
-      path: '/wallets',
-      meta: {
-        auth: true,
-        icon: 'fa-rocket',
-        link: 'wallets/index.vue'
-      },
-      component: lazyLoading('wallets', true)
-    },
+    balance,
     charts,
     uifeatures,
     components,

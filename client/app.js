@@ -2,6 +2,9 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueAuth from '@websanova/vue-auth'
+import Buefy from 'buefy'
+import 'buefy/lib/buefy.css'
+import '@fortawesome/fontawesome'
 import NProgress from 'vue-nprogress'
 import { sync } from 'vuex-router-sync'
 import App from './App.vue'
@@ -25,6 +28,10 @@ Vue.use(VueAuth, {
   router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
   loginData: { url: 'http://localhost:8000/api-token-auth/', fetchUser: false },
   refreshData: { enabled: false }
+})
+
+Vue.use(Buefy, {
+  defaultIconPack: 'fas'
 })
 
 Vue.use(NProgress)
