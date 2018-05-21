@@ -15,20 +15,11 @@ const state = {
       name: 'Dashboard',
       path: '/dashboard',
       meta: {
+        auth: true,
         icon: 'fa-tachometer',
         link: 'dashboard/index.vue'
       },
       component: lazyLoading('dashboard', true)
-    },
-    {
-      name: 'Axios',
-      path: '/axiosDemo',
-      meta: {
-        auth: true,
-        icon: 'fa-rocket',
-        link: 'axios/index.vue'
-      },
-      component: lazyLoading('axios', true)
     },
     {
       name: 'Wallet',
