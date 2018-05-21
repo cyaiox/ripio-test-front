@@ -11,7 +11,10 @@ export default new Router({
     {
       name: 'Home',
       path: '/',
-      component: require('../views/Home')
+      redirect: '/dashboard',
+      meta: {
+        auth: true
+      }
     },
     {
       name: 'Login',
@@ -21,7 +24,7 @@ export default new Router({
     ...generateRoutesFromMenu(menuModule.state.items),
     {
       path: '*',
-      redirect: '/'
+      redirect: '/dashboard'
     }
   ]
 })
