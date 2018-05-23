@@ -30,7 +30,7 @@
               @sort="onSort">
 
               <template slot-scope="props">
-                  <b-table-column field="date" label="Date" sortable>
+                  <b-table-column field="date_time" label="Date" sortable>
                       {{ props.row.title }}
                   </b-table-column>
 
@@ -61,11 +61,11 @@
         transactions: [],
         total: 0,
         loading: false,
-        sortField: 'date',
+        sortField: 'date_time',
         sortOrder: 'desc',
         defaultSortOrder: 'desc',
         page: 1,
-        perPage: 25
+        perPage: 5
       }
     },
 
@@ -85,13 +85,14 @@
       loadAsyncData () {
         var params = [
           `sort_by=${this.sortField}.${this.sortOrder}`,
-          `page=${this.page}`
+          `page=${this.page}`,
+          `limit=${this.perPage}`
         ].join('&')
 
         this.loading = true
 
         this.$http({
-          url: `api/transfers/${this.selected_wallet}/?${params}`
+          url: `${api}/transfers/${this.selected_wallet}/?${params}`
         }).then((response) => {
           this.transactions = []
 
