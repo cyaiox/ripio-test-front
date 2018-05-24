@@ -4,7 +4,8 @@ import VueAxios from 'vue-axios'
 import VueAuth from '@websanova/vue-auth'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
-import '@fortawesome/fontawesome'
+import fontawesome from '@fortawesome/fontawesome'
+import solid from '@fortawesome/fontawesome-free-solid'
 import NProgress from 'vue-nprogress'
 import { sync } from 'vuex-router-sync'
 import App from './App.vue'
@@ -29,6 +30,8 @@ Vue.use(VueAuth, {
   loginData: { url: 'http://localhost:8000/api-token-auth/', fetchUser: false },
   refreshData: { enabled: false }
 })
+
+fontawesome.library.add(solid)
 
 Vue.use(Buefy, {
   defaultIconPack: 'fas'
