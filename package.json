@@ -34,6 +34,9 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/fontawesome-free-brands": "^5.0.13",
+    "@fortawesome/fontawesome-free-regular": "^5.0.13",
+    "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "@websanova/vue-auth": "^2.8.2-beta",
     "animate.css": "3.5.2",
     "animejs": "^2.0.1",
@@ -42,6 +45,7 @@
     "bulma": "^0.3.2",
     "font-awesome": "4.7.0",
     "mdi": "^1.8.36",
+    "moment": "^2.22.1",
     "plotly.js": "^1.24.2",
     "vue": "^2.2.2",
     "vue-axios": "^2.0.1",
