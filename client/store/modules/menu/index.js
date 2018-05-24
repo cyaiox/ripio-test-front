@@ -1,10 +1,7 @@
 import * as types from '../../mutation-types'
 import balance from './balance'
+import wallet from './wallet'
 import lazyLoading from './lazyLoading'
-import charts from './charts'
-import uifeatures from './uifeatures'
-import components from './components'
-import tables from './tables'
 
 // show: meta.label -> name
 // name: component name
@@ -17,16 +14,13 @@ const state = {
       path: '/dashboard',
       meta: {
         auth: true,
-        icon: 'fa-tachometer',
+        icon: 'fa-tachometer-alt',
         link: 'dashboard/index.vue'
       },
       component: lazyLoading('dashboard', true)
     },
     balance,
-    charts,
-    uifeatures,
-    components,
-    tables
+    wallet
   ]
 }
 

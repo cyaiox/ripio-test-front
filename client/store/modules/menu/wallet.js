@@ -1,12 +1,12 @@
 import lazyLoading from './lazyLoading'
 
 export default {
-  path: '/balance',
+  path: '/wallet',
   meta: {
     auth: true,
-    icon: 'fa-chart-area',
+    icon: 'fa-wallet',
     expanded: false,
-    label: 'Balance'
+    label: 'Wallets'
   },
-  component: lazyLoading('balance', true)
+  component: lazyLoading('wallets', true)
 }
