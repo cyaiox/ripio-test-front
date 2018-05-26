@@ -2,21 +2,20 @@
   <div>
     <div class="tile is-ancestor">
       <div class="tile is-parent">
+        <wallet-list v-model="selectedWallet"
+                    :wallets="wallets" 
+                    @input="selectWallet">
+        </wallet-list>
+      
         <article class="tile is-child box">
           <div class="columns">
             <div class="column">
               <h4 class="title">Balance</h4>
             </div>
-            <div class="column is-one-quarter">
-              <b-field label="Wallet">
-                <b-select v-model="selectedWallet" expanded placeholder="Wallet" @input="selectWallet">
-                  <option v-for="wallet in wallets" 
-                          :key="wallet.id" 
-                          :value="wallet.id" 
-                          v-text="wallet.id"></option>
-                </b-select>
-              </b-field>
+            <div class="column is-one-fifth">
+              <button class="button is-primary" @click="newTransaction">New Transaction</button>
             </div>
+            
           </div>
           <section>
             <b-table
@@ -60,11 +59,18 @@
         </article>
       </div>
     </div>
+
+    <new-transaction :visible="openNewTransaction" 
+                     :wallet="selectedWallet"
+                     @close="closeNewTransaction">
+    </new-transaction>
   </div>
 </template>
 
 <script>
   import moment from 'moment'
+  import NewTransaction from './NewTransaction'
+  import WalletList from '../wallets'
   
   const api = 'http://localhost:8000/balance'
 
@@ -75,9 +81,19 @@
   }
 
   export default {
+    components: {
+      NewTransaction,
+      WalletList
+    },
+
     data () {
       return {
-        selectedWallet: '',
+        selectedWallet: {
+          id: 0,
+          coin: {
+            symbol: ''
+          }
+        },
         wallets: [],
         transactions: [],
         balance: 0,
@@ -87,19 +103,25 @@
         sortOrder: 'desc',
         defaultSortOrder: 'desc',
         page: 1,
-        perPage: 5
+        perPage: 5,
+        openNewTransaction: false
       }
     },
 
     beforeCreate () {
+      const loading = this.$loading.open({
+        container: null
+      })
+
       this.$http({
         url: `${api}/wallets/`
       }).then((response) => {
         response.data.data.forEach(wallet => this.wallets.push(wallet))
-        this.$set(this.$data, 'selectedWallet', this.wallets[0].id)
+        this.$set(this.$data, 'selectedWallet', this.wallets[0])
+        loading.close()
         this.loadAsyncData()
       }).catch((error) => {
-        console.log(error)
+        throw error
       })
     },
 
@@ -111,13 +133,12 @@
           `limit=${this.perPage}`
         ].join('&')
 
+        this.transactions = []
         this.loading = true
 
         this.$http({
-          url: `${api}/transfers/${this.selectedWallet}/?${params}`
+          url: `${api}/transfers/${this.selectedWallet.id}/?${params}`
         }).then((response) => {
-          this.transactions = []
-
           // this.total = response.data.pagination.total
 
           response.data.transactions.forEach((item) => {
@@ -152,11 +173,31 @@
       },
 
       showWallet (fromWallet, toWallet) {
-        return fromWallet === this.selectedWallet ? toWallet : fromWallet
+        return fromWallet === this.selectedWallet.id ? toWallet : fromWallet
       },
 
       formatStatus (fromWallet) {
-        return fromWallet === this.selectedWallet ? 'is-danger' : 'is-success'
+        return fromWallet === this.selectedWallet.id ? 'is-danger' : 'is-success'
+      },
+
+      newTransaction () {
+        this.openNewTransaction = true
+      },
+
+      closeNewTransaction (transaction) {
+        if (transaction !== null) {
+          this.$http({
+            method: 'POST',
+            url: `${api}/transfers/${transaction.from_wallet}/`,
+            data: transaction
+          }).then((response) => {
+            console.log(response)
+          }).catch((error) => {
+            throw error
+          })
+        }
+
+        this.openNewTransaction = false
       }
     },
     filters: {
