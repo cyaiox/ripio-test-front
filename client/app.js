@@ -8,6 +8,7 @@ import fontawesome from '@fortawesome/fontawesome'
 import solid from '@fortawesome/fontawesome-free-solid'
 import NProgress from 'vue-nprogress'
 import { sync } from 'vuex-router-sync'
+import Vuelidate from 'vuelidate'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -38,6 +39,8 @@ Vue.use(Buefy, {
 })
 
 Vue.use(NProgress)
+
+Vue.use(Vuelidate)
 
 // Enable devtools
 Vue.config.devtools = true
