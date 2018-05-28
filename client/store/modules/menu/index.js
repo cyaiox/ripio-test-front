@@ -1,7 +1,6 @@
 import * as types from '../../mutation-types'
 import balance from './balance'
 import wallet from './wallet'
-import lazyLoading from './lazyLoading'
 
 // show: meta.label -> name
 // name: component name
@@ -9,16 +8,6 @@ import lazyLoading from './lazyLoading'
 
 const state = {
   items: [
-    {
-      name: 'Dashboard',
-      path: '/dashboard',
-      meta: {
-        auth: true,
-        icon: 'fa-tachometer-alt',
-        link: 'dashboard/index.vue'
-      },
-      component: lazyLoading('dashboard', true)
-    },
     balance,
     wallet
   ]
