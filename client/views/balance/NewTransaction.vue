@@ -73,7 +73,9 @@ export default {
             this.$http({
               url: `${api}/wallet/${value}/`
             }).then((response) => {
-              resolve(!response.data.hasOwnProperty('error'))
+              resolve(!response.data.hasOwnProperty('error') &&
+                      response.data.coin.id === this.wallet.coin.id &&
+                      this.wallet.id !== value)
             }).catch((error) => {
               throw error
             })
@@ -93,14 +95,14 @@ export default {
       this.$emit('close', {
         from_wallet: this.wallet.id,
         to_wallet: this.to_wallet,
-        amount: this.amount
+        amount: parseInt(this.amount)
       })
     },
 
     close () {
-      this.$v.$reset()
       this.$v.to_wallet.$model = ''
       this.$v.amount.$model = 0
+      this.$v.$reset()
       this.$emit('close', null)
     },
 
