@@ -23,6 +23,10 @@
             </label>
           </p>
 
+          <router-link to="/register">
+            <span class="has-text-grey signup">Sign Up</span>
+          </router-link>
+
           <hr>
           <p class="control">
             <button type="submit" class="button is-primary">Login</button>
@@ -65,7 +69,7 @@ export default {
         },
         data: this.data.body,
         rememberMe: this.data.rememberMe,
-        redirect: {name: redirect ? redirect.from.name : 'Home'},
+        redirect: {name: redirect ? redirect.from.name : 'Balance'},
         success (res) {
           console.log('Auth Success')
           // console.log('Token: ' + this.$auth.token())
@@ -99,7 +103,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.is-title {
+  .is-title {
     text-transform: capitalize;
-}
+  }
+
+  .signup {
+    border-bottom: 1px solid currentColor;
+  }
 </style>
