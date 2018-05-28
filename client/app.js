@@ -6,6 +6,8 @@ import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
 import fontawesome from '@fortawesome/fontawesome'
 import solid from '@fortawesome/fontawesome-free-solid'
+import regular from '@fortawesome/fontawesome-free-regular'
+import brands from '@fortawesome/fontawesome-free-brands'
 import NProgress from 'vue-nprogress'
 import { sync } from 'vuex-router-sync'
 import Vuelidate from 'vuelidate'
@@ -33,6 +35,8 @@ Vue.use(VueAuth, {
 })
 
 fontawesome.library.add(solid)
+fontawesome.library.add(regular)
+fontawesome.library.add(brands)
 
 Vue.use(Buefy, {
   defaultIconPack: 'fas'
