@@ -3,8 +3,8 @@
     <div class="tile is-ancestor">
       <div class="tile is-parent">
         <wallet-list v-model="selectedWallet"
-                    :wallets="wallets" 
-                    @input="selectWallet">
+                     :wallets="wallets" 
+                     @input="selectWallet">
         </wallet-list>
       
         <article class="tile is-child box">
@@ -33,13 +33,13 @@
                   </b-table-column>
 
                   <b-table-column field="amount" label="Amount" sortable>
-                    <b-tag :type="formatStatus(props.row.from_wallet)" size="is-medium">
-                      {{ props.row.amount }}
-                    </b-tag>
+                      {{ statusAmount(props.row.from_wallet, props.row.amount)}}
                   </b-table-column>
 
                   <b-table-column field="status" label="Status" sortable>
-                      {{ props.row.status | statusLabel }}
+                      <span :class="statusLabelClass(props.row.status)">
+                        {{ props.row.status | statusLabel }}
+                      </span>
                   </b-table-column>
               </template>
 
@@ -68,16 +68,34 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+  import Notification from 'vue-bulma-notification'
   import moment from 'moment'
   import NewTransaction from './NewTransaction'
-  import WalletList from '../wallets'
+  import WalletList from '../wallets/List'
   
+  const NotificationComponent = Vue.extend(Notification)
+
   const api = 'http://localhost:8000/balance'
+
+  const openNotification = (propsData = {
+    title: '',
+    message: '',
+    type: '',
+    direction: '',
+    duration: 4500,
+    container: '.notifications'
+  }) => {
+    return new NotificationComponent({
+      el: document.createElement('div'),
+      propsData
+    })
+  }
 
   const STATUS_TRANSFERS = {
     'A': 'APPROVED',
     'C': 'CANCELED',
-    'W': 'WAITING FOR APPROVE'
+    'W': 'WAITING FOR APPROVATION'
   }
 
   export default {
@@ -116,7 +134,11 @@
       this.$http({
         url: `${api}/wallets/`
       }).then((response) => {
-        response.data.data.forEach(wallet => this.wallets.push(wallet))
+        if (response.data.length === 0) {
+          this.$router.push('/wallet')
+        }
+
+        response.data.forEach(wallet => this.wallets.push(wallet))
         this.$set(this.$data, 'selectedWallet', this.wallets[0])
         loading.close()
         this.loadAsyncData()
@@ -191,13 +213,37 @@
             url: `${api}/transfers/${transaction.from_wallet}/`,
             data: transaction
           }).then((response) => {
-            console.log(response)
+            openNotification({
+              message: 'Your transaction has been sent.',
+              type: 'success',
+              duration: 3000
+            })
+            this.loadAsyncData()
           }).catch((error) => {
+            openNotification({
+              message: 'Your transaction cannot been proccess.',
+              type: 'danger',
+              duration: 3000
+            })
             throw error
           })
         }
 
         this.openNewTransaction = false
+      },
+
+      statusLabelClass (status) {
+        if (status === 'A') {
+          return 'has-text-success'
+        } else if (status === 'W') {
+          return 'has-text-info'
+        } else {
+          return 'has-text-danger'
+        }
+      },
+
+      statusAmount (fromWallet, amount) {
+        return fromWallet === this.selectedWallet.id ? `- ${amount}` : `+ ${amount}`
       }
     },
     filters: {
