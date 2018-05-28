@@ -1,7 +1,7 @@
 <h1>Ripio Test</h1>
 
 <p>
-  <strong>My Wallet Admin Panel</strong>,
+  <strong>My Wallet Admin Panel</strong>
 </p>
 
 <p>
