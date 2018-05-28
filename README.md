@@ -7,9 +7,6 @@
 <p>
 <a href="https://npmjs.org/package/vue-admin"><img src="https://img.shields.io/npm/v/vue-admin.svg" alt="NPM version"></a>
 <a href="https://www.npmjs.com/package/vue-admin"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT License"></a>
-<a href="https://travis-ci.org/vue-bulma/vue-admin"><img src="https://img.shields.io/travis/vue-bulma/vue-admin.svg?label=linux" alt="Linux Build"></a>
-<a href="https://ci.appveyor.com/project/fundon/vue-admin"><img src="https://img.shields.io/appveyor/ci/fundon/vue-admin/master.svg?label=windows" alt="Window Build"/></a>
-<a href="https://gitter.im/fundon/vue-admin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"><img src="https://badges.gitter.im/fundon/vue-admin.svg" alt="Gitter"></a>
 </p>
 
 </div>
