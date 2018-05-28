@@ -6,8 +6,8 @@
 * [vue-resource][]
 * [vue-router][]
 * [vuex][]
-* [Buefy]: https://buefy.github.io/#/
-* [Vuelidate]: https://monterail.github.io/vuelidate/
+* [Buefy](https://buefy.github.io/#/)
+* [Vuelidate](https://monterail.github.io/vuelidate/)
 
 
 ## UI Components
