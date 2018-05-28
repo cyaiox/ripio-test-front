@@ -28,6 +28,6 @@
 
   * Node >= v8
 
-  * NPM >= v3
+  * NPM >= v6
 
   * Webpack v2
